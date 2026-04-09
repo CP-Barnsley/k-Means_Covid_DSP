@@ -2,11 +2,14 @@
 ## Executive Summary
 ### Findings
 
-The model successfully identified 5 distinct clusters within the data, where meaningful analysis and further research can be applied. Crucially, there is a strong relationship with higher Digital Propensity and lower covid infection rates, even when access to amenities (such as supermarkets and sport centers) was limited.</br>
-</br>
-This translates to "Individuals with limited access to remote working and reported a lower digital literacy/confidence were dispropotionally effected during the Covid-19 Pandemic.".</br>
-</br>
-However, known bias such as job type, income, deprivation and demographic/personal data will have some explanitory power when looking at the results and application of this analysis. </br>
+The analysis identified five distinct clusters of areas, each with unique characteristics related to digital capability, availability of local amenities, and COVID-19 outcomes. Crucially, there is a strong inverse relationship between digital propensity and COVID-19 infection rates, where communities with higher digital inclusion and literacy experienced lower average infection rates, even when access to physical amenities (like supermarkets and sports centres) was limited. 
+
+In practical terms, this means that individuals and areas lacking remote-work capability or with lower digital confidence were disproportionately affected during the COVID-19 pandemic, as they had fewer alternatives to in-person activities. 
+
+One cluster stood out for having the highest COVID-19 rates by a wide margin; notably, this cluster did not have extreme values in digital or amenities, suggesting that other unmeasured factors (such as housing density, occupation types, or institutional settings) contributed to the heightened infection levels there. 
+
+However, it is important to note that underlying biases and confounding factors (such as job type, income levels, deprivation, and demographic differences) play a role and overlap with these findings. For instance, many communities with low digital scores are also economically deprived or have older populations – factors which themselves contributed to higher COVID vulnerability. Such influences provide additional explanatory power when interpreting the results, and they temper any one-dimensional conclusion. 
+
 
 ### Purpose
 The objective of this analysis is to understand how patterns of COVID infection relate to digital capability and access to physical amenities, by identifying distinct types of places rather than analysing individual variables in isolation.</br>
@@ -24,15 +27,21 @@ This approach allows for identification of place-based typologies rather than si
 All data used is publically available.</br>
 
 ### Potential Application
-This analysis can be used as a basis to help develop prioritisation zones in the event of a pandemic, as well as focus area's for digital literacy skill training or availability. </br>
-</br>
-Fundamentally, it can be used at a base line to build up patterns and distinct groups based on places and not people. </br>
-</br>
-It is scaleable and easy to add additional data for further analysis.</br>
+This place typology can inform targeted policymaking and resource allocation in both pandemic response and digital inclusion initiatives. Public health authorities could use these insights to develop prioritisation zones in the event of a future pandemic.
+
+For example, areas identified as “digitally constrained” (low digital access, low amenities) might be prioritised for support during lockdowns (mobile testing units, food delivery assistance, etc.), as residents have fewer means to cope with restrictions. On the other hand, areas labelled as “high social interaction zones” or “commercial centres” could be focal points for outbreak control measures.
+
+Beyond immediate pandemic response, the findings highlight where to invest in digital literacy and infrastructure. If low digital propensity is linked to worse health outcomes, improving digital access in those communities becomes not just an economic or social goal but a health resilience strategy. 
+
+Fundamentally, this analysis provides a baseline for building patterns of risk and resilience based on place, not people. It is scalable, where additional data such as healthcare access, education level, etc. can be incorporated to refine the clusters.
+It offers a template for multidisciplinary interventions (combining digital policy with public health). In summary, the clustering results are directly usable for crafting nuanced, location-specific policies for both pandemic mitigation and digital inclusion strategies.
+
+
 
 ### Bias & Other Research
 It has been well researched that COVID infection and mortality rates affected people from an ethnic minority group, disabed and women (etc...) disproportiantaly. </br>
 </br>
+
 Therefore, it is reasonable to assume that this will be reflected in the projects base data. This could be represented by:
   - Income & Job type
   - Neighbourhood deprivation
@@ -56,6 +65,7 @@ Tools used:
   - Python 3.11
   - Excel
 </br>
+
 Python dependencies:
   - ydata-profiling
   - kneed
