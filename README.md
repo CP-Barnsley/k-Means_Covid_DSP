@@ -12,19 +12,20 @@ However, it is important to note that underlying biases and confounding factors 
 
 
 ### Purpose
-The objective of this analysis is to understand how patterns of COVID infection relate to digital capability and access to physical amenities, by identifying distinct types of places rather than analysing individual variables in isolation.</br>
-</br>
-<b>Data & Method</b></br>
-Data used is area-level data containing:</br>
+The objective of this analysis is to understand how patterns of COVID infection relate to digital capability and access to physical amenities, by identifying distinct types of places rather than analysing individual variables in isolation.
+
+<b>Data & Method</b>
+Data used is area-level data containing:
 
   - Digital propensity scores
   - COVID-19 infection rates
   - Counts of supermarkets
   - Counts of sports and leisure facilities
 
-To reduce dimensionality and minimise multicollinearity, the input features were first transformed using Principal Component Analysis (PCA). k-Means clustering was then applied to group areas into clusters with similar underlying characteristics.</br>
-This approach allows for identification of place-based typologies rather than single-factor explanations.</br>
-All data used is publically available.</br>
+To reduce dimensionality and minimise multicollinearity, the input features were first transformed using Principal Component Analysis (PCA). k-Means clustering was then applied to group areas into clusters with similar underlying characteristics.
+This approach allows for identification of place-based typologies rather than single-factor explanations.
+All data used is publically available.
+
 
 ### Potential Application
 This place typology can inform targeted policymaking and resource allocation in both pandemic response and digital inclusion initiatives. Public health authorities could use these insights to develop prioritisation zones in the event of a future pandemic.
@@ -37,34 +38,34 @@ Fundamentally, this analysis provides a baseline for building patterns of risk a
 It offers a template for multidisciplinary interventions (combining digital policy with public health). In summary, the clustering results are directly usable for crafting nuanced, location-specific policies for both pandemic mitigation and digital inclusion strategies.
 
 
-
 ### Bias & Other Research
-It has been well researched that COVID infection and mortality rates affected people from an ethnic minority group, disabed and women (etc...) disproportiantaly. </br>
-</br>
+It has been well researched that COVID infection and mortality rates affected people from an ethnic minority group, disabed and women (etc...) disproportiantaly. 
 
 Therefore, it is reasonable to assume that this will be reflected in the projects base data. This could be represented by:
   - Income & Job type
   - Neighbourhood deprivation
   - Age, Gender, Ethnicity, Disability
-</br>
-[Link to Public Health research](https://www.local.gov.uk/health-inequalities-deprivation-and-poverty-and-covid-19#:~:text=The%20unequal%20impact%20of%20the,Storm%20report%2C%20published%20April%202021.) -- Need to look at how to Oxford reference this correctly here. </br>
-</br>
-[Link to IMD 2025](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2025/english-indices-of-deprivation-2025-statistical-release) -- Need to look at how to Oxford reference this correctly here. </br>
+
+[Link to Public Health research](https://www.local.gov.uk/health-inequalities-deprivation-and-poverty-and-covid-19#:~:text=The%20unequal%20impact%20of%20the,Storm%20report%2C%20published%20April%202021.) -- Need to look at how to Oxford reference this correctly here. 
+
+[Link to IMD 2025](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2025/english-indices-of-deprivation-2025-statistical-release) -- Need to look at how to Oxford reference this correctly here. 
+
 
 ### Encyclopedia
-LSOA = Lower Layer Super Output Area, which represents a group of postcodes in an area.</br>
-MSOA = Middle Layer Super Output Area, which represents a group of LSOA area's and a larger cohort of postcodes.</br>
-DPS = Digital Propensity Score. </br>
-PCA = Principal Component Analysis.</br>
+LSOA = Lower Layer Super Output Area, which represents a group of postcodes in an area.
+MSOA = Middle Layer Super Output Area, which represents a group of LSOA area's and a larger cohort of postcodes.
+DPS = Digital Propensity Score. 
+PCA = Principal Component Analysis.
+
 
 ## Approach
 
-Data was collected from publically available sources and pre-processed before analysis into the required shape via Excel and Python.</br>
-The shape used in this analysis is MSOA level data.</br>
+Data was collected from publically available sources and pre-processed before analysis into the required shape via Excel and Python.
+The shape used in this analysis is MSOA level data.
 Tools used:
   - Python 3.11
   - Excel
-</br>
+
 
 Python dependencies:
   - ydata-profiling
@@ -77,7 +78,7 @@ Python dependencies:
   - numpy
   - imageio.v2
   - IPython.display
-</br>
+
 ```python
 !pip install ydata-profiling
 !pip install kneed
@@ -90,5 +91,5 @@ Python dependencies:
 !pip install imageio.v2
 !pip install IPython.display
 ```
-</br>
+
 Users will need to download the msoa_geo_data.geojson from [Insert link here](draft sorry) and add it to the 'Files' directory. 
