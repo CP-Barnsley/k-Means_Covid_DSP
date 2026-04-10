@@ -155,7 +155,7 @@ It offers a template for multidisciplinary interventions (combining digital poli
 
 
 ### Bias & Other Research
-It has been well researched that COVID infection and mortality rates affected people from an ethnic minority group, disabed and women (etc.) disproportiantaly. 
+It has been well researched that COVID infection and mortality rates affected people from an ethnic minority group, disabled and women (etc.) disproportionally. 
 
 Therefore, it is reasonable to assume that this will be reflected in the projects base data. This could be represented by:
   - Income & Job type
