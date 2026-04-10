@@ -2,7 +2,7 @@
 ## Executive Summary
 ### Findings
 
-[Cluster-map](Images/msoa_clusters_animation.gif)
+![Cluster-map](Images/msoa_clusters_animation.gif)
 
 The analysis identified five distinct clusters of areas, each with unique characteristics related to digital capability, availability of local amenities, and COVID-19 outcomes. Crucially, there is a strong inverse relationship between digital propensity and COVID-19 infection rates, where communities with higher digital inclusion and literacy experienced lower average infection rates, even when access to physical amenities (like supermarkets and sports centres) was limited. 
 
