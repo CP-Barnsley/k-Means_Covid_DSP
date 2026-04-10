@@ -25,8 +25,7 @@ However, it is important to note that underlying biases and confounding factors 
 ***
 ***
 
-#### Cluster 0
-##### Digitally Enabled, Low-Amenity Areas
+#### Cluster 0 - Digitally Enabled, Low-Amenity Areas
 
 ![Cluster 0](Images/Cluster_0_cluster.jpg)
 
@@ -46,8 +45,7 @@ Defining characteristics:
 These areas appear to benefit from digital inclusion: residents are more able to work remotely, access services online and reduce physical contact despite limited local infrastructure.
 
 
-#### Cluster 1
-##### Commercial & Retail Activity Centers
+#### Cluster 1 - Commercial & Retail Activity Centers
 
 ![Cluster 1](Images/Cluster_1_cluster.jpg)
 
@@ -68,8 +66,7 @@ Defining characteristics:
 These are high-footfall, service-rich areas. Even with reasonable digital capability, frequent in-person activity likely increased exposure risk.
 
 
-#### Cluster 2
-##### High Social Interaction Zones
+#### Cluster 2 - High Social Interaction Zones
 
 ![Cluster 2](Images/Cluster_2_cluster.jpg)
 
@@ -90,8 +87,7 @@ Defining characteristics:
 COVID risk here appears driven by social congregation, not deprivation or lack of digital access. Typical examples may include campuses, large leisure complexes, or multi-use community hubs.
 
 
-#### Cluster 3
-##### Digitally Constrained Residential Areas
+#### Cluster 3 - Digitally Constrained Residential Areas
 
 ![Cluster 3](Images/Cluster_3_cluster.jpg)
 
@@ -111,8 +107,7 @@ Defining characteristics:
 These areas lack both digital alternatives and local infrastructure, leaving residents more exposed when restrictions require behavioral change. Risk here is structural rather than behavioral.
 
 
-#### Cluster 4
-##### High-Risk Exposure Hotspots
+#### Cluster 4 - High-Risk Exposure Hotspots
 
 ![Cluster 4](Images/Cluster_4_cluster.jpg)
 
@@ -142,7 +137,9 @@ Data used is area-level data containing:
   - [Counts of sports and leisure facilities](https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/datasets/numberofsportsfacilitiesacrosslocalauthoritydistrictsladandmiddlelayersuperoutputareasmsoainenglandandwales)
 
 To reduce dimensionality and minimise multicollinearity, the input features were first transformed using Principal Component Analysis (PCA). k-Means clustering was then applied to group areas into clusters with similar underlying characteristics.
+
 This approach allows for identification of place-based typologies rather than single-factor explanations.
+
 All data used is publically available.
 
 
@@ -165,22 +162,24 @@ Therefore, it is reasonable to assume that this will be reflected in the project
   - Neighbourhood deprivation
   - Age, Gender, Ethnicity, Disability
 
-[Link to Public Health research](https://www.local.gov.uk/health-inequalities-deprivation-and-poverty-and-covid-19#:~:text=The%20unequal%20impact%20of%20the,Storm%20report%2C%20published%20April%202021.) -- Need to look at how to Oxford reference this correctly here. 
+[Gov.uk - Health Inequalities, Deprivation, Poverty and Covid-19 Research](https://www.local.gov.uk/health-inequalities-deprivation-and-poverty-and-covid-19#:~:text=The%20unequal%20impact%20of%20the,Storm%20report%2C%20published%20April%202021.)
 
-[Link to IMD 2025](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2025/english-indices-of-deprivation-2025-statistical-release) -- Need to look at how to Oxford reference this correctly here. 
+[Gov.uk - Indices of Deprivation 2025](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2025/english-indices-of-deprivation-2025-statistical-release)
 
 
 ### Encyclopedia
-LSOA = Lower Layer Super Output Area, which represents a group of postcodes in an area.
-MSOA = Middle Layer Super Output Area, which represents a group of LSOA area's and a larger cohort of postcodes.
-DPS = Digital Propensity Score. 
-PCA = Principal Component Analysis.
+
+  - LSOA = Lower Layer Super Output Area, which represents a group of postcodes in an area.
+  - MSOA = Middle Layer Super Output Area, which represents a group of LSOA area's and a larger cohort of postcodes.
+  - DPS = Digital Propensity Score. 
+  - PCA = Principal Component Analysis.
 
 ***
 
 ## Approach
 
 Data was collected from publically available sources and pre-processed before analysis into the required shape via Excel and Python. Full details on how this was acomplished are available in the python notebook. 
+
 The shape used in this analysis is MSOA level data.
 
 <b>Tools used:</b>
