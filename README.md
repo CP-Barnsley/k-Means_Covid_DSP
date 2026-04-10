@@ -2,6 +2,8 @@
 ## Executive Summary
 ### Findings
 
+[Cluster-map](Images/msoa_clusters_animation.gif)
+
 The analysis identified five distinct clusters of areas, each with unique characteristics related to digital capability, availability of local amenities, and COVID-19 outcomes. Crucially, there is a strong inverse relationship between digital propensity and COVID-19 infection rates, where communities with higher digital inclusion and literacy experienced lower average infection rates, even when access to physical amenities (like supermarkets and sports centres) was limited. 
 
 In practical terms, this means that individuals and areas lacking remote-work capability or with lower digital confidence were disproportionately affected during the COVID-19 pandemic, as they had fewer alternatives to in-person activities. 
@@ -62,12 +64,12 @@ PCA = Principal Component Analysis.
 
 Data was collected from publically available sources and pre-processed before analysis into the required shape via Excel and Python.
 The shape used in this analysis is MSOA level data.
-Tools used:
+
+<b>Tools used:</b>
   - Python 3.11
   - Excel
 
-
-Python dependencies:
+<b>Python dependencies:</b>
   - ydata-profiling
   - kneed
   - seaborn
