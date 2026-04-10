@@ -1,0 +1,10 @@
+@import "{{ site.theme }}";
+
+.sidebar img {
+  max-height: 200px;
+  width: auto;
+}
+
+.sidebar {
+  padding-bottom: 3rem;
+}
