@@ -479,7 +479,7 @@ pcadf = pd.DataFrame(X_2d, columns=["component_1", "component_2"])
 pcadf[id_col] = ids.values
 ```
 
-Initialise the k with a range of 3-16
+Initialise the k with a range of 3-16. 
 
 ```python
 # Initialise the k_range for identifying the number of clusters needed
@@ -493,3 +493,245 @@ for k in k_range:
     inertias.append(km.inertia_)
     silhouettes.append(silhouette_score(X_pca, labels))
 ```
+
+Run with k_selected as 0 initially, then re-run once the number of clusters has been identified.
+
+This will show the elbow graph and silhouette graph for identifying the ideal number of k.
+
+```python
+# Start with 0 (not shown as min number of k = 3 here). Then re-run with the number of k selected to highlight
+k_selected = 5 
+
+fig, ax = plt.subplots(1, 2, figsize=(14, 5))
+
+# Elbow plot (Inertia)
+ax[0].plot(list(k_range), inertias, marker="o", label="Inertia")
+
+if k_selected in k_range
+:
+    idx = list(k_range).index(k_selected)
+    ax[0].scatter(
+        k_selected,
+        inertias[idx],
+        color="red",
+        s=120,
+        zorder=5,
+        label=f"Selected k = {k_selected}"
+    )
+
+ax[0].set_title("Elbow method (inertia vs k)")
+ax[0].set_xlabel("k")
+ax[0].set_ylabel("inertia (SSE)")
+ax[0].legend()
+
+
+# Silhouette plot
+ax[1].plot(list(k_range), silhouettes, marker="o", label="Silhouette score")
+
+if k_selected in k_range:
+    idx = list(k_range).index(k_selected)
+    ax[1].scatter(
+        k_selected,
+        silhouettes[idx],
+        color="red",
+        s=120,
+        zorder=5,
+        label=f"Selected k = {k_selected}"
+    )
+
+ax[1].set_title("Silhouette score vs k")
+ax[1].set_xlabel("k")
+ax[1].set_ylabel("mean silhouette score")
+ax[1].legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+Left = Elbow graph, which trails off around 4-5 clusters.
+Right = Silhouette graph, showing a clear spike at 5 clusters.
+
+![elbow_silhouette](Images/Elbow_silhouette.jpg)
+
+Next, apply the k-means algorithm with the number of clusters selected.
+
+```python
+# Initialise the k-Means algorithm with the number of k selected
+k = 5  
+kmeans = KMeans(n_clusters=k, n_init=50, random_state=42)
+clusters = kmeans.fit_predict(X_pca)
+```
+
+Define the cluster colours for continuity.
+
+```python
+# Cluster colour mapping - this helps to standardise the colours in further visuals
+CLUSTER_COLOURS = {
+    0: "#66c2a5",  # teal
+    1: "#fc8d62",  # orange
+    2: "#8da0cb",  # blue
+    3: "#e78ac3",  # pink
+    4: "#a6d854",  # green
+}
+```
+
+Apply the clusters to the 2 dimensional PCA co-ordinates and display on a scatter graph.
+
+```python
+# Add the clusters for each row of data into the pca df 
+pcadf["predicted_cluster"] = clusters
+
+# Centroid positions in the plotted 2D PCA coordinates
+centroids_2d = (
+    pcadf.groupby("predicted_cluster")[["component_1", "component_2"]]
+    .mean()
+    .reset_index()
+)
+
+plt.style.use("fivethirtyeight")
+plt.figure(figsize=(9, 8))
+
+ax = sns.scatterplot(
+    data=pcadf,
+    x="component_1",
+    y="component_2",
+    hue="predicted_cluster",
+    palette=CLUSTER_COLOURS,   # Map the cluster colours
+    s=45,
+    alpha=0.85
+)
+
+# Plot centroids as red X
+plt.scatter(
+    centroids_2d["component_1"],
+    centroids_2d["component_2"],
+    c="red",
+    s=250,
+    marker="X",
+    edgecolor="black",
+    linewidth=1.0,
+    label="Centroids"
+)
+
+ax.set_title("KMeans clusters (PCA 2D) with centroids")
+plt.legend(bbox_to_anchor=(1.02, 1), loc="upper left")
+plt.tight_layout()
+plt.show()
+```
+
+The cluster centroids are marked with red X's. This shows that the data is quite dense in one location with very few outliers. 
+
+![k-means_pca_clusters](Images/k-means_PCA_Clusters.jpg)
+
+Bring the clusters and PCA dimensions back into the original dataframe for review. 
+
+```python
+# Copy the df (preserve the pcadf if needed later on) for processing msoa map data
+clustered_df = df.copy()
+clustered_df["cluster"] = clusters
+
+# Add PC1/PC2 for convenience
+clustered_df = clustered_df.merge(
+    pcadf[[id_col, "component_1", "component_2", "predicted_cluster"]],
+    on=id_col,
+    how="left"
+).drop(columns=["predicted_cluster"])
+
+clustered_df.head()
+```
+
+| area_code |	mean_dp_score | mean_covid_rate	| count_of_supermarkets |	numb_sport_facilities	| cluster	| component_1	| component_2 |
+|:----------|:--------------|:----------------|:----------------------|:----------------------|:--------|:------------|:------------|
+|E02000001  |	0.964833	    | 310.349612	    | 32	                  | 96	                  | 1	      | 14.055175	  | 8.071071    |
+|E02000002  |	0.945250	    | 317.687805	    | 1	                    | 2	                    | 0	      | -1.117344	  | -0.267793   |
+|E02000003  |	0.948833	    | 279.755319	    | 2	                    | 16	                  | 0	      | 0.443506	  | 0.183580    |
+|E02000004  |	0.936500	    | 362.836842	    | 1	                    | 15	                  | 4	      | -0.933621	  | 0.126094    |
+|E02000005  |	0.956250	    | 311.492742	    | 3	                    | 5	                    | 0	      | -0.355278	  | 0.600385    |
+
+Display the results of the clusters against the msoa on a map.
+
+```python
+import geopandas as gpd
+from matplotlib.colors import ListedColormap
+
+msoa_path = "Files/msoa_geo_data.geojson"
+msoa_gdf = gpd.read_file(msoa_path)
+
+# Find MSOA code column automatically
+code_candidates = [c for c in msoa_gdf.columns if "MSOA" in c.upper() and c.upper().endswith("CD")]
+msoa_code_col = code_candidates[0] if code_candidates else "MSOA21CD"
+
+# Join cluster results
+join_df = clustered_df[[id_col, "cluster"]].copy()
+
+map_gdf = msoa_gdf.merge(
+    join_df,
+    left_on=msoa_code_col,
+    right_on=id_col,
+    how="left"
+)
+
+# Create a fixed categorical colormap in cluster order
+cluster_order = sorted(CLUSTER_COLOURS.keys())
+cmap = ListedColormap([CLUSTER_COLOURS[c] for c in cluster_order])
+
+# Plot choropleth
+fig, ax = plt.subplots(1, 1, figsize=(10, 12))
+map_gdf.plot(
+    column="cluster",
+    categorical=True,
+    legend=True,
+    cmap=cmap, # Map the colours
+    linewidth=0.1,
+    edgecolor="white",
+    ax=ax,
+    missing_kwds={"color": "lightgrey", "label": "No data"}
+)
+
+ax.set_axis_off()
+ax.set_title("MSOA clusters (England & Wales)")
+plt.tight_layout()
+plt.show()
+```
+
+![Cluster-map](Images/Clusters_map.jpg)
+
+Summary findings. 
+
+```python
+from IPython.display import display
+
+# Group by cluster and compute summary statistics
+cluster_summary = (
+    clustered_df
+    .groupby('cluster')
+    .agg(
+        mean_dp_score=('mean_dp_score', 'mean'),
+        mean_covid_rate=('mean_covid_rate', 'mean'),
+        mean_supermarkets=('count_of_supermarkets', 'mean'),
+        mean_sport_facilities=('numb_sport_facilities', 'mean'),
+        n_areas=('cluster', 'count')
+    )
+    .reset_index()
+)
+
+# Round for readability
+cluster_summary = cluster_summary.round({
+    'mean_dp_score': 3,
+    'mean_covid_rate': 1,
+    'mean_supermarkets': 2,
+    'mean_sport_facilities': 2
+})
+
+# Display
+display(cluster_summary)
+```
+
+| Cluster | Mean Digital Propensity Score | Mean Covid 19 Inf Rate | Mean Supermarkets | Mean Sports Facilities | Observations |
+|:------- |:------------------------------|:-----------------------|:------------------|:-----------------------|:-------------|
+| 0	      | 0.953	                        | 289.7	                 | 1.48	             | 8.26	                  | 1322         |
+| 1	      | 0.940	                        | 301.9	                 | 5.86	             | 17.65	                | 721          |
+| 2	      | 0.943	                        | 312.4	                 | 1.92	             | 30.96	                | 1016         |
+| 3	      | 0.921	                        | 306.6	                 | 1.89	             | 11.87	                | 1745         |
+| 4	      | 0.944	                        | 353.6	                 | 1.48	             | 10.09	                | 1873         |
+
